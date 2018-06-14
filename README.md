@@ -1,6 +1,6 @@
 #  NumberPicker
 
-<img src="ScreenShot/numberPicker1.gif" width="250"> <img src="ScreenShot/numberPicker2.gif" width="250">
+<img src="ScreenShot/numberPicker1.gif" width="300"><img src="ScreenShot/numberPicker2.gif" width="300">
 
 How to use 
 ---------

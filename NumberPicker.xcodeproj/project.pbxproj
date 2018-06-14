@@ -10,8 +10,10 @@
 		D3E4D52920CD025200525883 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D52820CD025200525883 /* AppDelegate.swift */; };
 		D3E4D52B20CD025300525883 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D52A20CD025300525883 /* ViewController.swift */; };
 		D3E4D52E20CD025300525883 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E4D52C20CD025300525883 /* Main.storyboard */; };
-		D3E4D53020CD025400525883 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3E4D52F20CD025400525883 /* Assets.xcassets */; };
+		D3E4D53020CD025400525883 /* TYNumberPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3E4D52F20CD025400525883 /* TYNumberPicker.xcassets */; };
 		D3E4D53320CD025400525883 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E4D53120CD025400525883 /* LaunchScreen.storyboard */; };
+		D3E4D53B20CD030900525883 /* TYNumberPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D53A20CD030900525883 /* TYNumberPicker.swift */; };
+		D3E4D53D20CD0AE800525883 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D53C20CD0AE800525883 /* UIView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,9 +21,13 @@
 		D3E4D52820CD025200525883 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3E4D52A20CD025300525883 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D3E4D52D20CD025300525883 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D3E4D52F20CD025400525883 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D3E4D52F20CD025400525883 /* TYNumberPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TYNumberPicker.xcassets; sourceTree = "<group>"; };
 		D3E4D53220CD025400525883 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3E4D53420CD025400525883 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3E4D53A20CD030900525883 /* TYNumberPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYNumberPicker.swift; sourceTree = "<group>"; };
+		D3E4D53C20CD0AE800525883 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		D3F3773220D2E4850087C1EF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D3F3773520D2E4FE0087C1EF /* ScreenShot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ScreenShot; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,9 +41,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D3C32FE120CD5BCB002E1CED /* TYNumberPicker */ = {
+			isa = PBXGroup;
+			children = (
+				D3E4D53A20CD030900525883 /* TYNumberPicker.swift */,
+				D3E4D53C20CD0AE800525883 /* UIView+Extensions.swift */,
+				D3E4D52F20CD025400525883 /* TYNumberPicker.xcassets */,
+			);
+			path = TYNumberPicker;
+			sourceTree = "<group>";
+		};
 		D3E4D51C20CD025200525883 = {
 			isa = PBXGroup;
 			children = (
+				D3F3773220D2E4850087C1EF /* README.md */,
+				D3F3773520D2E4FE0087C1EF /* ScreenShot */,
 				D3E4D52720CD025200525883 /* NumberPicker */,
 				D3E4D52620CD025200525883 /* Products */,
 			);
@@ -56,8 +74,8 @@
 			children = (
 				D3E4D52820CD025200525883 /* AppDelegate.swift */,
 				D3E4D52A20CD025300525883 /* ViewController.swift */,
+				D3C32FE120CD5BCB002E1CED /* TYNumberPicker */,
 				D3E4D52C20CD025300525883 /* Main.storyboard */,
-				D3E4D52F20CD025400525883 /* Assets.xcassets */,
 				D3E4D53120CD025400525883 /* LaunchScreen.storyboard */,
 				D3E4D53420CD025400525883 /* Info.plist */,
 			);
@@ -123,7 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3E4D53320CD025400525883 /* LaunchScreen.storyboard in Resources */,
-				D3E4D53020CD025400525883 /* Assets.xcassets in Resources */,
+				D3E4D53020CD025400525883 /* TYNumberPicker.xcassets in Resources */,
 				D3E4D52E20CD025300525883 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,7 +153,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3E4D53B20CD030900525883 /* TYNumberPicker.swift in Sources */,
 				D3E4D52B20CD025300525883 /* ViewController.swift in Sources */,
+				D3E4D53D20CD0AE800525883 /* UIView+Extensions.swift in Sources */,
 				D3E4D52920CD025200525883 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +303,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FWQ7N3RX7G;
 				INFOPLIST_FILE = NumberPicker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -301,6 +322,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FWQ7N3RX7G;
 				INFOPLIST_FILE = NumberPicker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

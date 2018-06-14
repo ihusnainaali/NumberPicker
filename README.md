@@ -1,7 +1,5 @@
 #  NumberPicker
 
-Custom animating gradient number picker. <br />
-
 <img src="ScreenShot/numberPicker1.gif" width="250"> <img src="ScreenShot/numberPicker2.gif" width="250">
 
 How to use 

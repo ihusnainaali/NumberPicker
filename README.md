@@ -2,33 +2,37 @@
 
 Custom animating gradient number picker. <br />
 
-
-![gif](ScreenShot/NumberPicker1.gif)
-![gif](ScreenShot/NumberPicker2.gif)
-
+<img src="ScreenShot/numberPicker1.gif" width="250"> <img src="ScreenShot/numberPicker2.gif" width="250">
 
 How to use 
 ---------
+call this function in action.
 ```swift
-let progressBar = TYProgressBar()
-
-func setupProgressBar() {
-        progressBar.frame = CGRect(x: 0, y: 0, width: 220, height: 220)
-        progressBar.center = self.view.center
-        self.view.addSubview(progressBar)
+    func openNumberPicker() {
+        let numberPicker = TYNumberPicker(self, maxNumber: 300) // set max number 
+        numberPicker.bgGradients = [.red, .yellow]
+        numberPicker.tintColor = .white
+        numberPicker.heading = "Weight"
+        
+        self.present(numberPicker, animated: true, completion: nil)
     }
 ```
 Customize 
 ---------
-You can change gradient color and label font and text color 
+You can change gradient color and tint color and title 
 ```swift
-progressBar.gradients = [UIColor.red, UIColor.yellow]
-progressBar.textColor = .orange
-progressBar.font = UIFont(name: "HelveticaNeue-Medium", size: 22)!
+        numberPicker.bgGradients = [.red, .yellow]
+        numberPicker.tintColor = .white
+        numberPicker.heading = "Weight"
 ```
 
-Show progress 
+delegate 
 ---------
 ```swift
-progressBar.progress = 0.5    // between 0 to 1
+ extension ViewController: TYNumberPickerDelegate {
+    
+    func selectedNumber(_ number: Int) {
+        print(number)
+    }
+}
 ```

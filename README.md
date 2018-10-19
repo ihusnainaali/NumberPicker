@@ -11,21 +11,19 @@ call this function in action.
         numberPicker.bgGradients = [.red, .yellow]
         numberPicker.tintColor = .white
         numberPicker.heading = "Weight"
+        numberPicker.defaultSelectedNumber = 150 // set default selected number
         
         self.present(numberPicker, animated: true, completion: nil)
     }
 ```
-Customize 
----------
+### Customize 
 You can change gradient color and tint color and title 
 ```swift
         numberPicker.bgGradients = [.red, .yellow]
         numberPicker.tintColor = .white
         numberPicker.heading = "Weight"
 ```
-
-delegate 
----------
+### delegate 
 ```swift
  extension ViewController: TYNumberPickerDelegate {
     

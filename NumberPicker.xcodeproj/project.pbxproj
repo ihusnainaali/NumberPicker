@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D372571F217A4193006E8612 /* TYNumberPickerLineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372571E217A4193006E8612 /* TYNumberPickerLineCell.swift */; };
 		D3E4D52920CD025200525883 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D52820CD025200525883 /* AppDelegate.swift */; };
 		D3E4D52B20CD025300525883 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4D52A20CD025300525883 /* ViewController.swift */; };
 		D3E4D52E20CD025300525883 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E4D52C20CD025300525883 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D372571E217A4193006E8612 /* TYNumberPickerLineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYNumberPickerLineCell.swift; sourceTree = "<group>"; };
 		D3E4D52520CD025200525883 /* NumberPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NumberPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E4D52820CD025200525883 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3E4D52A20CD025300525883 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				D3E4D53A20CD030900525883 /* TYNumberPicker.swift */,
+				D372571E217A4193006E8612 /* TYNumberPickerLineCell.swift */,
 				D3E4D53C20CD0AE800525883 /* UIView+Extensions.swift */,
 				D3E4D52F20CD025400525883 /* TYNumberPicker.xcassets */,
 			);
@@ -154,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3E4D53B20CD030900525883 /* TYNumberPicker.swift in Sources */,
+				D372571F217A4193006E8612 /* TYNumberPickerLineCell.swift in Sources */,
 				D3E4D52B20CD025300525883 /* ViewController.swift in Sources */,
 				D3E4D53D20CD0AE800525883 /* UIView+Extensions.swift in Sources */,
 				D3E4D52920CD025200525883 /* AppDelegate.swift in Sources */,

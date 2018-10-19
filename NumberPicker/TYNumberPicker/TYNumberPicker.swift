@@ -13,31 +13,49 @@ protocol TYNumberPickerDelegate {
 
 class TYNumberPicker: UIViewController {
     
-    var maxNumber: Int!
     var delegate: TYNumberPickerDelegate!
-    
+    var maxNumber: Int!
     var bgGradients: [UIColor] = [.white, .white]
     var tintColor = UIColor.black
     var heading = ""
     
-    var bgView: UIView!
+    private var bgView, pickerView: UIView!
+    private var cancelBtn, doneBtn: UIButton!
+    private var titleLbl, numberLbl: UILabel!
     
-    var pickerView: UIView!
-    var isPickerOpen = false
-    var pickerViewBottomConstraint: NSLayoutConstraint?
+    private var pickerViewBottomConstraint: NSLayoutConstraint?
+    private var cancelBtnLeftConstraint: NSLayoutConstraint?
+    private var doneBtnRightConstraint: NSLayoutConstraint?
+    private var titleLblTopConstraint: NSLayoutConstraint?
     
-    var cancelBtn: UIButton!
-    var cancelBtnLeftConstraint: NSLayoutConstraint?
+    private var isPickerOpen = false
     
-    var doneBtn: UIButton!
-    var doneBtnRightConstraint: NSLayoutConstraint?
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 10
+        layout.itemSize = CGSize(width: 1, height: 80)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .clear
+        return collectionView
+    }()
     
-    var titleLbl: UILabel!
-    var titleLblTopConstraint: NSLayoutConstraint?
+    private var layout: UICollectionViewFlowLayout {
+        return collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+    }
     
-    var numberLbl: UILabel!
+    private var cellWidthIncludingSpacing: CGFloat {
+        return layout.itemSize.width + layout.minimumLineSpacing
+    }
     
-    lazy var arrowImageView: UIImageView = {
+    private let cellId = "cellId"
+
+    private lazy var arrowImageView: UIImageView = {
         let imgView = UIImageView(image: #imageLiteral(resourceName: "arrow").withRenderingMode(.alwaysTemplate))
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.tintColor = tintColor
@@ -46,9 +64,15 @@ class TYNumberPicker: UIViewController {
     }()
     
     // this is for iphone x
-    var bottomPadding: CGFloat = 0.0
+    private var bottomPadding: CGFloat = 0.0
     
-    var selectedNumber = 0
+    private var selectedNumber: Int = 0 {
+        didSet {
+            self.numberLbl.text = "\(selectedNumber)"
+        }
+    }
+    
+    var defaultSelectedNumber: Int = 0
     
     init(_ delegate: TYNumberPickerDelegate, maxNumber: Int) {
         self.delegate = delegate
@@ -70,6 +94,7 @@ class TYNumberPicker: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.animatePickerView()
+            self.scrollToDefaultNumber(self.defaultSelectedNumber)
         }
     }
     
@@ -82,13 +107,13 @@ class TYNumberPicker: UIViewController {
         pickerView.layer.masksToBounds = true
         
         cancelBtn = createBtn(#imageLiteral(resourceName: "cancel"))
-        
         doneBtn = createBtn(#imageLiteral(resourceName: "done"))
         doneBtn.tag = 99
         
         titleLbl = createLabel(heading, fontSize: 18)
-        
         numberLbl = createLabel("0", fontSize: 30)
+        
+        collectionView.register(TYNumberPickerLineCell.self, forCellWithReuseIdentifier: cellId)
     }
     
     private func addViews() {
@@ -136,49 +161,23 @@ class TYNumberPicker: UIViewController {
         numberLbl.centerXAnchor.constraint(equalTo: pickerView.centerXAnchor).isActive = true
         numberLbl.topAnchor.constraint(equalTo: titleLbl.bottomAnchor).isActive = true
         
-        setupMainScrollView()
+        pickerView.addSubview(collectionView)
+        collectionView.leftAnchor.constraint(equalTo: pickerView.leftAnchor).isActive = true
+        collectionView.rightAnchor.constraint(equalTo: pickerView.rightAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: pickerView.topAnchor, constant: 125).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: pickerView.bounds.width / 2, bottom: 0, right: pickerView.bounds.width / 2)
         
         pickerView.addSubview(arrowImageView)
         arrowImageView.centerXAnchor.constraint(equalTo: pickerView.centerXAnchor).isActive = true
         arrowImageView.centerYAnchor.constraint(equalTo: pickerView.centerYAnchor, constant: 32 - bottomPadding/2).isActive = true
     }
     
-    var mainScrollView: UIScrollView!
-    
-    let lineWidth: CGFloat = 1
-    let lineHeight: CGFloat = 50
-    let middleLineHeight: CGFloat = 80
-    let gap: CGFloat = 10
-    var contentSize: CGFloat = 0
-    
-    var offSet: UIEdgeInsets!
-    
-    private func setupMainScrollView() {
-        self.view.layoutSubviews()
-        
-        offSet = UIEdgeInsets(top: 0, left: self.pickerView.frame.width / 2, bottom: 0, right: 0)
-        
-        mainScrollView = UIScrollView(frame: CGRect(x: 0, y: 125, width: self.pickerView.frame.width, height: 80))
-        mainScrollView.showsHorizontalScrollIndicator = false
-        mainScrollView.delegate = self
-        mainScrollView.contentInset = offSet
-        for i in 0 ... maxNumber {
-            let XPOS: CGFloat = gap * CGFloat(i)
-            
-            let lineView = UIView(frame: CGRect(x: XPOS, y: 15, width: lineWidth, height: lineHeight))
-            lineView.backgroundColor = tintColor.withAlphaComponent(0.5)
-            mainScrollView.addSubview(lineView)
-            
-            if i % 5 == 0 {
-                lineView.frame = CGRect(x: XPOS, y: 0, width: lineWidth, height: middleLineHeight)
-                lineView.backgroundColor = tintColor.withAlphaComponent(0.7)
-            }
-            
-            contentSize = XPOS
-        }
-        
-        mainScrollView.contentSize = CGSize(width: contentSize + offSet.left, height: mainScrollView.frame.height)
-        self.pickerView.addSubview(mainScrollView)
+    private func scrollToDefaultNumber(_ number: Int) {
+        if number <= 0 { return }
+        if number > maxNumber { return }
+        let offset = CGPoint(x: CGFloat(number) * cellWidthIncludingSpacing - collectionView.contentInset.left, y: -collectionView.contentInset.top)
+        collectionView.setContentOffset(offset, animated: true)
     }
     
     @objc private func btnTapped(_ sender: UIButton) {
@@ -213,7 +212,7 @@ class TYNumberPicker: UIViewController {
         animateButtons(animationDuration)
     }
     
-    func animateButtons(_ duration: Double) {
+    private func animateButtons(_ duration: Double) {
         cancelBtnLeftConstraint?.constant = isPickerOpen ? 8 : -54
         doneBtnRightConstraint?.constant = isPickerOpen ? -8 : 54
         titleLblTopConstraint?.constant = isPickerOpen ? 0 : -86
@@ -258,31 +257,40 @@ class TYNumberPicker: UIViewController {
     }
 }
 
+extension TYNumberPicker: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return maxNumber + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+            as! TYNumberPickerLineCell
+        cell.calcLineViewHeight(indexPath.row, bgColor: tintColor)
+        return cell
+    }
+}
+
 extension TYNumberPicker: UIScrollViewDelegate {
     
+    // this is for exactly stop on line
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
-        let targetOffset = targetContentOffset.pointee
-        var pos = targetOffset.x  + offSet.left
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        let roundedIndex = round(index)
         
-        pos = round(pos/10)
-        pos = pos * 10
-        pos = pos - offSet.left
-        
-        targetContentOffset.pointee = CGPoint(x: pos, y: 0.0)
+        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let xPos = (scrollView.contentOffset.x + offSet.left)
+        let offset = scrollView.contentOffset
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        let roundedIndex = round(index)
         
-        let approxNum = xPos/10
-        
-        let num = round(approxNum)
-        
-        if num < 0 || Int(num) > maxNumber { return }
-        
-        self.selectedNumber = Int(num)
-        self.numberLbl.text = "\(Int(num))"
+        selectedNumber = roundedIndex <= 0 ? 0 : Int(roundedIndex)
     }
 }
+

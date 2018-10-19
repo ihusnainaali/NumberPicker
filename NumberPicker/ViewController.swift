@@ -19,8 +19,8 @@ class ViewController: UIViewController, TYNumberPickerDelegate {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.2039215686, green: 0.2039215686, blue: 0.2039215686, alpha: 1)
         
-        selectWeight.applyGradient(colors: firstGradientColors, type: .cross)
-        //selectWeight.applyGradient(colors: secondGradientColors, type: .cross)
+        //selectWeight.applyGradient(colors: firstGradientColors, type: .cross)
+        selectWeight.applyGradient(colors: secondGradientColors, type: .cross)
         selectWeight.backgroundColor = .black
         selectWeight.layer.cornerRadius = 25
         selectWeight.layer.masksToBounds = true
@@ -35,8 +35,8 @@ class ViewController: UIViewController, TYNumberPickerDelegate {
     
     func openNumberPicker() {
         let numberPicker = TYNumberPicker(self, maxNumber: 300)
-        numberPicker.bgGradients = firstGradientColors
-        //numberPicker.bgGradients = secondGradientColors
+        //numberPicker.bgGradients = firstGradientColors
+        numberPicker.bgGradients = secondGradientColors
         numberPicker.tintColor = .white
         numberPicker.heading = "Weight"
         numberPicker.defaultSelectedNumber = 150
